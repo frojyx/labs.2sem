@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+void FillFile(int* count,char* filename);
+int mapIndex(FILE*file, int index, int len);
+void readNum(FILE** file, int pos, int* num);
+void writeNum(FILE** file, int pos, int* num);
+void swapInFile(FILE* file, int i, int j);
+int fileSize(FILE* file);
+void sortBinaryFile(char* filename, int n);
+void SearchMaxMin(int count, int* min, int* max, char* filename);
+int valid_int(int min, int max);
+void ChangeMinMax(char* filename, int count, int max, int min, int* count_max);
+void OutputFile(int count, char* filename);
+
+int main(int argc, char* argv[]) {
+    setlocale(LC_ALL, "ru");
+    int count;
+    FillFile(&count, argv[1]);
+    system("cls");
+    printf("Ваши числа:\n");
+    OutputFile(count, argv[1]);
+   
+    int count_max = 0;
+    int max;
+    int min;
+
+    SearchMaxMin(count,&min,&max,argv[1]);
+    printf("\n");
+
+    ChangeMinMax(argv[1], count, max, min, &count_max);
+    printf("В файле %d элементов с максимальным значением\n\n",count_max);
+    printf("Измененный файл:\n");
+    OutputFile(count, argv[1]);
+    
+    printf("\n");
+
+    sortBinaryFile(argv[1], count);
+    printf("Отсортированный файл:\n");
+    OutputFile(count, argv[1]);
+    return 0;
+}
+
+
+
